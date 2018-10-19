@@ -61,8 +61,19 @@ class PhoneInfo extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        // 현재 상태도 수정중이 아니고, 다음 변화될 상태도 수정중이 아닐 때,
+        if(!this.state.editting
+            && !nextState.editting
+            // 이전에 받아온 props와 현재 넘어올 props가 같으면 렌더링 안함.
+            && nextProps.info === this.props.info)
+            return false;
+        return true;
+    }
+
 
     render() {
+        console.log('render PhoneInfo ' + this.props.info.id);
         const style = {
             border: '1px solid black',
             padding: '8px',
